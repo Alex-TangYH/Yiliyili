@@ -18,7 +18,7 @@
             android:id="@+id/item_category_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/catagory_default"
+            android:text="@string/my_wallet"
             android:textColor="#000"
             android:textSize="14sp"/>
 
