@@ -1,4 +1,4 @@
-package yuhao.yiliyili.bean;
+package yuhao.yiliyili.bean.bangummi;
 
 import com.google.gson.JsonObject;
 
@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
+ *  数据持久类，用于获取分类排行方法返回的JSON
  * Created by Yuhao on 2016/6/14.
  */
 public class RankInfoBean {

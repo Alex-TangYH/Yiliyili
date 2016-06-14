@@ -1,4 +1,4 @@
-package yuhao.yiliyili.bean;
+package yuhao.yiliyili.bean.category;
 
 /**
  * Data bean of catagoryFragment's view

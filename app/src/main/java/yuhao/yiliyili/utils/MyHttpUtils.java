@@ -5,7 +5,6 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.exception.HttpException;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -13,12 +12,14 @@ import com.lidroid.xutils.http.callback.RequestCallBack;
 import com.lidroid.xutils.http.client.HttpRequest;
 
 
-import java.lang.reflect.Type;
+import java.math.BigDecimal;
 
-import yuhao.yiliyili.bean.BangumiInfoBean;
-import yuhao.yiliyili.bean.RankInfoBean;
-import yuhao.yiliyili.bean.RankVedioInfoBean;
-import yuhao.yiliyili.callbacktosetui.SetBanguimiUI;
+import yuhao.yiliyili.bean.bangummi.BangumiInfoBean;
+import yuhao.yiliyili.bean.bangummi.ListOfVideoInfoBean;
+import yuhao.yiliyili.bean.bangummi.RankInfoBean;
+import yuhao.yiliyili.bean.bangummi.RankVedioInfoBean;
+import yuhao.yiliyili.bean.bangummi.VideoInfoBean;
+import yuhao.yiliyili.interfaces.SetBanguimiUI;
 
 /**
  * 网络请求工具类
@@ -30,10 +31,19 @@ public class MyHttpUtils {
     int page2 = 1;
 
     private SetBanguimiUI.SetHotBanguimiUI setHotBanguimiUI;
+    private SetBanguimiUI.SetVideoUI setVideoUI;
+    private SetBanguimiUI.GetVideoInfo getVideoInfo;
 
+    public MyHttpUtils(SetBanguimiUI.GetVideoInfo getVideoInfo) {
+        this.getVideoInfo = getVideoInfo;
+    }
 
-    public MyHttpUtils(SetBanguimiUI.SetHotBanguimiUI HotBanguimiUI) {
-        this.setHotBanguimiUI = HotBanguimiUI;
+    public MyHttpUtils(SetBanguimiUI.SetHotBanguimiUI hotBanguimiUI) {
+        this.setHotBanguimiUI = hotBanguimiUI;
+    }
+
+    public MyHttpUtils(SetBanguimiUI.SetVideoUI setVideoUI) {
+        this.setVideoUI = setVideoUI;
     }
 
 
@@ -44,52 +54,34 @@ public class MyHttpUtils {
      * quailty  [int]  清晰度(1~2，根据视频有不同)
      * type  [int]  0:flv,1:hdmp4,2:mp4
      * @return Video source address
+     * @param cid
      */
-    public boolean getBangumi (String aid){
+    public boolean getBangumi (String cid){
 
         HttpUtils httpUtils = new HttpUtils();
-//        String url = "http://bilibili-service.daoapp.io/video/8041661?quality=2";
         String url = "http://bilibili-service.daoapp.io/video/";
-        aid = "8041661";
-        String quality = "2";
-        //TODO 整理删除注释
-//        post方法
-//        httpUtils.send(HttpRequest.HttpMethod.POST,
-//                url,
-//                params, new RequestCallBack<String>() {
-//                    @Override
-//                    public void onSuccess(ResponseInfo<String> responseInfo) {
-//                        Gson gson = new Gson();
-//                        Type type = new TypeToken<BangumiInfoBean>() {
-//                        }.getType();
-//                        BangumiInfoBean jsonBean = gson.fromJson(responseInfo.toString(),BangumiInfoBean.class);
-//                        jsonBean.toString();
-//                    }
-//
-//                    @Override
-//                    public void onFailure(HttpException error, String msg) {
-//
-//                    }
-//                });
 
+        Log.e("url",url+cid+"?quality=2");
         httpUtils.send(HttpRequest.HttpMethod.GET,
-                url+aid+"?quality="+quality,
-//                url,
+                url+cid+"?quality=2",
                 new RequestCallBack<String>(){
 
                     @Override
                     public void onSuccess(ResponseInfo<String> responseInfo) {
+
                         String test = responseInfo.result;
                         Log.e("result",test);
-                        Type type = new TypeToken<BangumiInfoBean>() {
-                        }.getType();
                         Gson gson = new GsonBuilder().create();
                         BangumiInfoBean bangumiInfoBean = gson.fromJson(test,BangumiInfoBean.class);
-
+                        setVideoUI.doing(bangumiInfoBean.getUrl());
+                        Log.e("bangumiInfoBean.getUrl",bangumiInfoBean.getUrl().toString());
                     }
 
                     @Override
                     public void onFailure(HttpException error, String msg) {
+                        Log.e("msg",msg);
+                        Log.e("error",error.toString());
+
                     }
                 });
         return true;
@@ -113,9 +105,7 @@ public class MyHttpUtils {
         page2 = page;
         String url = "http://bilibili-service.daoapp.io/sort/";
         httpUtils.send(HttpRequest.HttpMethod.GET,
-//                url + sortId + "?order=" + order + "count=?" + count + "page=?" + page,
                 url + sortId + "?count=" + count2 +"&page=" + page2,
-//                url + sortId + "?count=" + count,
                 new RequestCallBack<Object>() {
                     @Override
                     public void onSuccess(ResponseInfo<Object> responseInfo) {
@@ -125,12 +115,8 @@ public class MyHttpUtils {
                         Gson gson = new GsonBuilder().create();
                         RankInfoBean rankInfoBean = new RankInfoBean();
                         rankInfoBean = gson.fromJson(test,RankInfoBean.class);
-//                        Log.e("=====jsonBean====",rankInfoBean.toString());
-//                        Log.e("getList",rankInfoBean.getList().toString());
                         String rvib = rankInfoBean.getList().toString().replace("{\"0\":","").replace(",\"num\":\""+rankInfoBean.getResults()+"\"}","");
-                        Log.e("rvib",rvib);
                         RankVedioInfoBean rankVedioInfoBean= gson.fromJson(rvib,RankVedioInfoBean.class);
-                        Log.e("rvib",rankVedioInfoBean.toString());
                         setHotBanguimiUI.doing(rankVedioInfoBean);
                     }
 
@@ -141,5 +127,39 @@ public class MyHttpUtils {
                 });
 
         return true;
+    }
+
+
+    public void getCid(String aid){
+        HttpUtils httpUtils = new HttpUtils();
+        String url = "http://bilibili-service.daoapp.io/view/";
+
+        httpUtils.send(HttpRequest.HttpMethod.GET,
+                url+aid,
+//                url,
+                new RequestCallBack<String>(){
+
+                    @Override
+                    public void onSuccess(ResponseInfo<String> responseInfo) {
+
+                        String test = responseInfo.result;
+                        Log.e("result",test);
+                        Gson gson = new GsonBuilder().create();
+                        VideoInfoBean videoInfoBean = new VideoInfoBean();
+                        videoInfoBean = gson.fromJson(test,VideoInfoBean.class);
+
+                        String vib = videoInfoBean.getList().toString().replace("\"0\":","").replace("{{","{").replace("}}","}");
+                        ListOfVideoInfoBean listOfVideoInfoBean = gson.fromJson(vib,ListOfVideoInfoBean.class);
+                        BigDecimal bd = new BigDecimal(listOfVideoInfoBean.getCid());
+                        listOfVideoInfoBean.setCid(bd.toPlainString());
+                        getVideoInfo.doing(listOfVideoInfoBean.getCid());
+                    }
+
+                    @Override
+                    public void onFailure(HttpException error, String msg) {
+                        Log.e("msg",msg);
+                        Log.e("error",error.toString());
+                    }
+                });
     }
 }

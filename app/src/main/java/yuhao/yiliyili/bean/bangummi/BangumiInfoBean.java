@@ -1,4 +1,4 @@
-package yuhao.yiliyili.bean;
+package yuhao.yiliyili.bean.bangummi;
 
 import java.util.Arrays;
 
@@ -7,12 +7,6 @@ import java.util.Arrays;
  * Created by Yuhao on 2016/6/13.
  */
 public class BangumiInfoBean {
-//    {
-//    "accept": "mp4,hdmp4",
-//            "backup": null,
-//            "length": 1475883,
-//            "url": "http://cn-sddz2-cu.acgvideo.com/vg7/e/05/8041661-1-hd.mp4?expires=14658264000026ssig=Bfrkzl7KeSKavGzd4RAoiA0026oi=20219324050026appkey=4ebafd7c4951b3660026or=10330717660026rate=0"
-//    }
 
     public String getBackup() {
         return backup;

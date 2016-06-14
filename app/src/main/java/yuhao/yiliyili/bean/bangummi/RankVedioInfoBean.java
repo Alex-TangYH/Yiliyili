@@ -1,9 +1,12 @@
-package yuhao.yiliyili.bean;
+package yuhao.yiliyili.bean.bangummi;
+
+import java.io.Serializable;
 
 /**
+ * 数据持久类，用于分类排行返回的JSON中具体某个视频的信息
  * Created by Yuhao on 2016/6/14.
  */
-public class RankVedioInfoBean {
+public class RankVedioInfoBean implements Serializable {
     public String getAid() {
         return aid;
     }

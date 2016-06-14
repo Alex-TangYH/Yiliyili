@@ -22,7 +22,6 @@ import java.io.File;
 
 /**
  * 广告Banner的工具类，用于减少重复代码
- *
  * Created by Yuhao on 2016/6/12.
  */
 public class AdBannerUtils {
