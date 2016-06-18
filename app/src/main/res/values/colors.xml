@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!--自己定义的颜色-->
+    <color name="bili_color_transparent">#9000</color>
+    <color name="bili_color_navigation">#22000000</color>
+    <color name="bili_color_white">#ffffff</color>
+    <color name="bili_color_gray">#99999999</color>
+
+    <color name="_bkgd__black">#ff101010</color>
+
+    <color name="bili_color_select">#22000000</color>
+
+    <color name="bili_color_item_select">#66666666</color>
+    <!--粉色主题-->
+    <color name="bili_color_pink">#FB7299</color>
+    <color name="bili_color_darkpink">#D5305C</color>
+    <color name="bili_color_card">#FBF9F9</color>
+    <color name="bili_color_light_gray">#F2F2F2</color>
+    <!--黑色主题-->
+    <color name="bili_color_black">#3B3B3B</color>
+    <color name="bili_color_black_windowbg">#333333</color>
+
+    <!--字体-->
+    <color name="bili_color_white_normal">#99ffffff</color>
+    <color name="bili_color_white_pressed">#ffffff</color>
+    <color name="bili_true_black">#000000</color>
+
+</resources>

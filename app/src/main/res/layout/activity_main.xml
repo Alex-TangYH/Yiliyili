@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout
+    android:id="@+id/home_drawerlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context=".activity.MainActivity">
+    <!--主要布局-->
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <android.support.design.widget.CoordinatorLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <!--title部分-->
+           <android.support.design.widget.AppBarLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <android.support.v7.widget.Toolbar
+                   android:id="@+id/home_toolbar"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   app:layout_scrollFlags="scroll|enterAlways">
+                   <!--左边的三个控件-->
+                   <LinearLayout android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:orientation="horizontal">
+                       <ImageView
+                           android:layout_width="34dp"
+                           android:layout_height="34dp"
+                           android:background="@drawable/bili_default_avatar"/>
+                       <TextView
+                           android:layout_width="wrap_content"
+                           android:layout_height="wrap_content"
+                           android:textSize="16dp"
+                           android:paddingLeft="10dp"
+                           android:text="@string/home_top_default_nickname"
+                           android:textColor="@color/bili_color_white"
+                           android:layout_gravity="center_vertical" />
+
+                   </LinearLayout>
+               </android.support.v7.widget.Toolbar>
+
+               <android.support.design.widget.TabLayout
+                   android:id="@+id/home_tablayout"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   app:tabIndicatorColor="@color/bili_color_white"
+                   app:tabIndicatorHeight="3dp"
+                   app:tabSelectedTextColor="@color/bili_color_white_pressed"
+                   app:tabTextColor="@color/bili_color_white_normal"/>
+           </android.support.design.widget.AppBarLayout>
+
+           <!--viewPager部分-->
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_home"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            </android.support.v4.view.ViewPager>
+
+       </android.support.design.widget.CoordinatorLayout>
+   </LinearLayout>
+
+    <!--左侧菜单-->
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header_main"
+        app:menu="@menu/activity_home_drawer"/>
+
+
+</android.support.v4.widget.DrawerLayout>

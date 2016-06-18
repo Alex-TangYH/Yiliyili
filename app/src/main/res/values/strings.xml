@@ -1,0 +1,53 @@
+<resources>
+    <string name="app_name">一哩一哩动画</string>
+    <!--主页ToolBar使用-->
+    <string name="home_top_default_nickname">未登录</string>
+    <string name="game">游戏</string>
+    <string name="download">下载</string>
+    <string name="search">搜索</string>
+    <!--主页抽屉使用-->
+    <string name="open">open</string>
+    <string name="close">close</string>
+    <string name="home">首页</string>
+    <string name="offline">离线缓存</string>
+    <string name="favorites">我的收藏</string>
+    <string name="history">历史记录</string>
+    <string name="following">关注的人</string>
+    <string name="my_wallet">我的钱包</string>
+    <string name="theme">主题选择</string>
+    <string name="recommend_app">应用推荐</string>
+    <string name="setting_and_help">设置与帮助</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="catagory_default">直 播</string>
+    <string name="hello_blank_fragment">开发中</string>
+
+
+    <array name="home_tabs">
+        <item>直播</item>
+        <item>推荐</item>
+        <item>番剧</item>
+        <item>分区</item>
+        <item>关注</item>
+        <item>发现</item>
+    </array>
+
+    <array name="categoryName">
+        <item>直 播</item>
+        <item>番 剧</item>
+        <item>动 画</item>
+        <item>音 乐</item>
+        <item>舞 蹈</item>
+        <item>游 戏</item>
+        <item>科 技</item>
+        <item>娱 乐</item>
+        <item>鬼 畜</item>
+        <item>电 影</item>
+        <item>电视剧</item>
+        <item>时 尚</item>
+        <item>游戏中心</item>
+    </array>
+
+
+</resources>

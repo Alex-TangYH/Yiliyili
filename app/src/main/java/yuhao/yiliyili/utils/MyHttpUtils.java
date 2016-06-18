@@ -70,7 +70,6 @@ public class MyHttpUtils {
                     public void onSuccess(ResponseInfo<String> responseInfo) {
 
                         String test = responseInfo.result;
-                        Log.e("result",test);
                         Gson gson = new GsonBuilder().create();
                         BangumiInfoBean bangumiInfoBean = gson.fromJson(test,BangumiInfoBean.class);
                         setVideoUI.doing(bangumiInfoBean.getUrl());
@@ -110,7 +109,6 @@ public class MyHttpUtils {
                     @Override
                     public void onSuccess(ResponseInfo<Object> responseInfo) {
                         String test = (String) responseInfo.result;
-                        Log.e("result",test);
 
                         Gson gson = new GsonBuilder().create();
                         RankInfoBean rankInfoBean = new RankInfoBean();
@@ -136,7 +134,6 @@ public class MyHttpUtils {
 
         httpUtils.send(HttpRequest.HttpMethod.GET,
                 url+aid,
-//                url,
                 new RequestCallBack<String>(){
 
                     @Override
