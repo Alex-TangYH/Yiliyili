@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
+    <item
+        android:id="@+id/menu_home_top_game"
+        android:title="@string/game"
+        android:icon="@drawable/ic_menu_top_game_center"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_home_top_download"
+        android:title="@string/download"
+        android:icon="@drawable/ic_toolbar_menu_download"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/menu_home_top_search"
+        android:title="@string/search"
+        android:icon="@drawable/ic_toolbar_menu_search"
+        app:showAsAction="always"/>
+</menu>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+    <group android:checkableBehavior="single"
+        >
+        <item
+            android:id="@+id/nav_home"
+            android:checkable="false"
+            android:icon="@drawable/ic_home_black_24dp"
+            android:title="@string/home"/>
+        <item
+            android:id="@+id/nav_offline"
+            android:icon="@drawable/ic_file_download_black_24dp"
+            android:title="@string/offline"/>
+    </group>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_favorites"
+            android:icon="@drawable/ic_star_black_24dp"
+            android:title="@string/favorites"/>
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_history_black_24dp"
+            android:title="@string/history"/>
+        <item
+            android:id="@+id/nav_following"
+            android:icon="@drawable/ic_people_black_24dp"
+            android:title="@string/following"/>
+        <item
+            android:id="@+id/nav_my_wallet"
+            android:icon="@drawable/ic_account_balance_wallet_black_24dp"
+            android:title="@string/my_wallet"/>
+
+        <item
+            android:id="@+id/nav_theme"
+            android:icon="@drawable/ic_color_lens_black_24dp"
+            android:title="@string/theme"/>
+        <item
+            android:id="@+id/nav_recommend_app"
+            android:icon="@drawable/ic_shop_black_24dp"
+            android:title="@string/recommend_app"/>
+        <item
+            android:id="@+id/nav_setting_and_help"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/setting_and_help"/>
+    </group>
+
+
+</menu>

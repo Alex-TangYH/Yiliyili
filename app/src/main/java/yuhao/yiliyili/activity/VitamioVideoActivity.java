@@ -1,6 +1,7 @@
 package yuhao.yiliyili.activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,6 @@ public class VitamioVideoActivity extends AppCompatActivity {
             @Override
             public void doing(String cid2) {
                 cid = cid2;
-                Log.e("cid",cid2);
                 myHttpUtils2.getBangumi(cid);
             }
         });
@@ -51,8 +51,8 @@ public class VitamioVideoActivity extends AppCompatActivity {
 
         io.vov.vitamio.widget.MediaController controller = new io.vov.vitamio.widget.MediaController(this);
         videoView.setMediaController(controller);
-
-
+        //全屏
+//        videoView.setVideoLayout(videoView.VIDEO_LAYOUT_SCALE,0);
     }
 
     @Override
