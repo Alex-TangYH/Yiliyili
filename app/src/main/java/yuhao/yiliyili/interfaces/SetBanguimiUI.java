@@ -1,5 +1,7 @@
 package yuhao.yiliyili.interfaces;
 
+import java.util.ArrayList;
+
 import yuhao.yiliyili.bean.bangummi.RankVedioInfoBean;
 
 /**
@@ -7,10 +9,6 @@ import yuhao.yiliyili.bean.bangummi.RankVedioInfoBean;
  * Created by Yuhao on 2016/6/14.
  */
 public class SetBanguimiUI {
-    public interface SetHotBanguimiUI{
-        public void doing(RankVedioInfoBean rankVedioInfoBean);
-    };
-
     public interface SetVideoUI{
         public void doing(String url);
     };
@@ -18,4 +16,8 @@ public class SetBanguimiUI {
     public interface GetVideoInfo{
         public void doing(String cid);
     };
+
+    public  interface GetBanguimiData{
+        public void doing(ArrayList<RankVedioInfoBean> rankVedioInfoBeanList);
+    }
 }

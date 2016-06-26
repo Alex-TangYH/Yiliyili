@@ -4,12 +4,11 @@ package yuhao.yiliyili.fragment;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +36,7 @@ import yuhao.yiliyili.interfaces.SetBanguimiUI;
 import yuhao.yiliyili.bean.banner.NewsBean;
 import yuhao.yiliyili.bean.banner.StoryBean;
 import yuhao.yiliyili.utils.AdBannerUtils;
+import yuhao.yiliyili.utils.FullStaggeredGridLayoutManager;
 import yuhao.yiliyili.utils.MyHttpUtils;
 import yuhao.yiliyili.utils.Utils;
 
@@ -55,13 +55,13 @@ public class BangumiFragment extends BaseFragment {
     private RequestQueue mQueue;
 
     private RecyclerView recyclerView;
+    private HotBanguimiAdapter hotBanguimiAdapter;
 
     private Gson gson;
     private NewsBean news;
     private Timer mTimer = new Timer();
     private AdBannerUtils adBannerUtils;
     private MyHttpUtils myHttpUtils;
-    private List<RankVedioInfoBean> rankVedioInfoBeanList;
 
     private int mBannerPosition = 0;
     private final int FAKE_BANNER_SIZE = 100;
@@ -72,13 +72,16 @@ public class BangumiFragment extends BaseFragment {
     public BangumiFragment() {
     }
 
+    private void getData() {
+        myHttpUtils.getRankOfSort2("13","",10,1);
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         //第一个5000表示从调用schedule()方法到第一次执行mTimerTask的run()方法的时间间隔
         //第二个5000表示以后每隔5000毫秒执行一次mTimerTask的run()方法
         adBannerUtils = new AdBannerUtils();
         mTimer.schedule(mTimerTask,5000,5000);
-
 
         super.onCreate(savedInstanceState);
     }
@@ -90,8 +93,6 @@ public class BangumiFragment extends BaseFragment {
         mActivity = super.mActivity;
         initView();
         initEvent();
-
-
 
         return mView;
     }
@@ -114,31 +115,35 @@ public class BangumiFragment extends BaseFragment {
         //Touch
         adBannerUtils.setViewPagerOnTouchListener(mViewPager);
 
-        rankVedioInfoBeanList = new ArrayList<RankVedioInfoBean>();
-        myHttpUtils = new MyHttpUtils(new SetBanguimiUI.SetHotBanguimiUI() {
+        //获取到数据后，设置recyclerView功能
+        myHttpUtils =  new MyHttpUtils(new SetBanguimiUI.GetBanguimiData() {
             @Override
-            public void doing(RankVedioInfoBean rankVedioInfoBean) {
-                rankVedioInfoBeanList.add(rankVedioInfoBean);
-                // 初始化自定义的适配器
-                HotBanguimiAdapter hotBanguimiAdapter = new HotBanguimiAdapter(mActivity, mActivity,rankVedioInfoBeanList);
-                // 为mRecyclerView设置适配器
+            public void doing(ArrayList<RankVedioInfoBean> rankVedioInfoBeanList) {
+                hotBanguimiAdapter = new HotBanguimiAdapter(mActivity, mActivity,rankVedioInfoBeanList);
+                hotBanguimiAdapter.notifyDataSetChanged();
                 recyclerView.setAdapter(hotBanguimiAdapter);
+
             }
         });
-        myHttpUtils.getRankOfSort("13","",1,1);
-        myHttpUtils.getRankOfSort("13","",1,2);
-        myHttpUtils.getRankOfSort("13","",1,3);
-        myHttpUtils.getRankOfSort("13","",1,4);
-        myHttpUtils.getRankOfSort("13","",1,5);
+
 
         // 拿到RecyclerView
         recyclerView = (RecyclerView) mView.findViewById(R.id.rec_hotBangumi);
-        // 设置LinearLayoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(mActivity));
+        // 设置StaggeredGridLayoutManager实现瀑布流效果
+//        recyclerView.setLayoutManager(new FullStaggeredGridLayoutManager(1 ,StaggeredGridLayoutManager.VERTICAL));
+        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(1 ,StaggeredGridLayoutManager.VERTICAL));
+
         // 设置ItemAnimator
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        // 设置固定大小
+        // 设置Item固定大小
         recyclerView.setHasFixedSize(true);
+
+        //先隐藏recycleView，获取数据后再显示出来
+        recyclerView.setVisibility(View.INVISIBLE);
+        getData();
+        recyclerView.setVisibility(View.VISIBLE);
+
+
 //        //以下代码已写入callBack中，保证数据异步
 //        // 初始化自定义的适配器
 //        HotBanguimiAdapter hotBanguimiAdapter = new HotBanguimiAdapter(mActivity, mActivity,rankVedioInfoBeanList);
@@ -149,6 +154,8 @@ public class BangumiFragment extends BaseFragment {
 
         return null;
     }
+
+
 
     private void initEvent() {
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

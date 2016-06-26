@@ -89,11 +89,6 @@ public class MainActivity extends AppCompatActivity {
 
         //手动让它加载一次viewpager初始化，因为viewpager是不会触发onPageSelected事件
         vp_home.setCurrentItem(0);
-        vp_home.setCurrentItem(1);
-        vp_home.setCurrentItem(2);
-        vp_home.setCurrentItem(3);
-        vp_home.setCurrentItem(4);
-        vp_home.setCurrentItem(5);
     }
 
     /**

@@ -13,6 +13,7 @@ import com.lidroid.xutils.http.client.HttpRequest;
 
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import yuhao.yiliyili.bean.bangummi.BangumiInfoBean;
 import yuhao.yiliyili.bean.bangummi.ListOfVideoInfoBean;
@@ -30,16 +31,16 @@ public class MyHttpUtils {
     int count2 = 1;
     int page2 = 1;
 
-    private SetBanguimiUI.SetHotBanguimiUI setHotBanguimiUI;
     private SetBanguimiUI.SetVideoUI setVideoUI;
     private SetBanguimiUI.GetVideoInfo getVideoInfo;
+    private SetBanguimiUI.GetBanguimiData getBanguimiData;
 
     public MyHttpUtils(SetBanguimiUI.GetVideoInfo getVideoInfo) {
         this.getVideoInfo = getVideoInfo;
     }
 
-    public MyHttpUtils(SetBanguimiUI.SetHotBanguimiUI hotBanguimiUI) {
-        this.setHotBanguimiUI = hotBanguimiUI;
+    public MyHttpUtils(SetBanguimiUI.GetBanguimiData getBanguimiData){
+        this.getBanguimiData = getBanguimiData;
     }
 
     public MyHttpUtils(SetBanguimiUI.SetVideoUI setVideoUI) {
@@ -96,7 +97,7 @@ public class MyHttpUtils {
      * page 页码; count 分页容量; order排序方式(new,hot);默认值为1，20，hot.使用空字符即可使用默认值
      * @return VideoInfomationList
      */
-    public boolean getRankOfSort (String sortId,String order, int count, int page){
+    public boolean getRankOfSort2 (String sortId, String order, final int count, int page){
 
         HttpUtils httpUtils = new HttpUtils();
 
@@ -108,14 +109,21 @@ public class MyHttpUtils {
                 new RequestCallBack<Object>() {
                     @Override
                     public void onSuccess(ResponseInfo<Object> responseInfo) {
-                        String test = (String) responseInfo.result;
-
                         Gson gson = new GsonBuilder().create();
-                        RankInfoBean rankInfoBean = new RankInfoBean();
-                        rankInfoBean = gson.fromJson(test,RankInfoBean.class);
-                        String rvib = rankInfoBean.getList().toString().replace("{\"0\":","").replace(",\"num\":\""+rankInfoBean.getResults()+"\"}","");
-                        RankVedioInfoBean rankVedioInfoBean= gson.fromJson(rvib,RankVedioInfoBean.class);
-                        setHotBanguimiUI.doing(rankVedioInfoBean);
+                        RankInfoBean rankInfoBean = gson.fromJson(responseInfo.result.toString(), RankInfoBean.class  );
+                        RankVedioInfoBean rankVedioInfoBean;
+                        ArrayList<RankVedioInfoBean> rankVedioInfoBeanList = new ArrayList<RankVedioInfoBean>();
+                        //测试是否获取数据以及数据封装是否正确
+//                        rankInfoBean.getList().get("0");
+//                        Log.e(TAG,rankInfoBean.getList().get("0").toString());
+//                        RankVedioInfoBean rankVedioInfoBean = gson.fromJson(rankInfoBean.getList().get("0"), RankVedioInfoBean.class  );
+//                        Log.e(TAG,rankVedioInfoBean.toString());
+
+                        for(int i = 0 ; i < count;i++){
+                            rankVedioInfoBean = gson.fromJson(rankInfoBean.getList().get(i+""), RankVedioInfoBean.class  );
+                            rankVedioInfoBeanList.add(rankVedioInfoBean);
+                        }
+                        getBanguimiData.doing(rankVedioInfoBeanList);
                     }
 
                     @Override
