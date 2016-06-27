@@ -21,7 +21,6 @@ Signed-off-by: Alex-TangYH <937546209@qq.com>
 2. 将项目上传自github/Alex-TangYH
 
 ###2016/06/15
-大改动
 1. 添加了一个数据获取方法以获取视频的cid
 2. 给每个类添加了注释
 3. 整理了包结构
@@ -30,15 +29,16 @@ Signed-off-by: Alex-TangYH <937546209@qq.com>
 
 ###2016/06/14
 1.添加了两个数据获取方法
+
 2.番剧页面增加数据展示
 
 ###2016/06/13
-将Banner中的一些方法提取到BannerUtils
+- 将Banner中的一些方法提取到BannerUtils
 
 ###2016/06/11
-在之前的基础上实现了
+#####在之前的基础上实现了
 1. 分区界面
-2.番剧的viewPager广告
+2. 番剧的viewPager广告
 
 
 
