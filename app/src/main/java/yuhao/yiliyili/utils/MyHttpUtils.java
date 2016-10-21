@@ -62,9 +62,12 @@ public class MyHttpUtils {
         HttpUtils httpUtils = new HttpUtils();
         String url = "http://bilibili-service.daoapp.io/video/";
 
-        Log.e("url",url+cid+"?quality=2");
+//        Log.e("url",url+cid+"?quality=2");
+//        httpUtils.send(HttpRequest.HttpMethod.GET,
+//                url+cid+"?quality=2",
+//                new RequestCallBack<String>(){
         httpUtils.send(HttpRequest.HttpMethod.GET,
-                url+cid+"?quality=2",
+                url+cid,
                 new RequestCallBack<String>(){
 
                     @Override
@@ -73,8 +76,11 @@ public class MyHttpUtils {
                         String test = responseInfo.result;
                         Gson gson = new GsonBuilder().create();
                         BangumiInfoBean bangumiInfoBean = gson.fromJson(test,BangumiInfoBean.class);
-                        setVideoUI.doing(bangumiInfoBean.getUrl());
-                        Log.e("bangumiInfoBean.getUrl",bangumiInfoBean.getUrl().toString());
+
+                        Log.e(TAG, bangumiInfoBean.getDurl().get(0).getAsJsonObject().get("url").toString() );
+                        setVideoUI.doing(bangumiInfoBean.getDurl().get(0).getAsJsonObject().get("url").toString());
+//                        Log.e(TAG, bangumiInfoBean.getDurl().get(0).getAsJsonObject().get("backup_url").getAsJsonArray().get(0).toString() );
+//                        setVideoUI.doing(bangumiInfoBean.getDurl().get(0).getAsJsonObject().get("backup_url").getAsJsonArray().get(0).toString());
                     }
 
                     @Override
@@ -98,9 +104,7 @@ public class MyHttpUtils {
      * @return VideoInfomationList
      */
     public boolean getRankOfSort2 (String sortId, String order, final int count, int page){
-
         HttpUtils httpUtils = new HttpUtils();
-
         count2 = count;
         page2 = page;
         String url = "http://bilibili-service.daoapp.io/sort/";
@@ -113,11 +117,6 @@ public class MyHttpUtils {
                         RankInfoBean rankInfoBean = gson.fromJson(responseInfo.result.toString(), RankInfoBean.class  );
                         RankVedioInfoBean rankVedioInfoBean;
                         ArrayList<RankVedioInfoBean> rankVedioInfoBeanList = new ArrayList<RankVedioInfoBean>();
-                        //测试是否获取数据以及数据封装是否正确
-//                        rankInfoBean.getList().get("0");
-//                        Log.e(TAG,rankInfoBean.getList().get("0").toString());
-//                        RankVedioInfoBean rankVedioInfoBean = gson.fromJson(rankInfoBean.getList().get("0"), RankVedioInfoBean.class  );
-//                        Log.e(TAG,rankVedioInfoBean.toString());
 
                         for(int i = 0 ; i < count;i++){
                             rankVedioInfoBean = gson.fromJson(rankInfoBean.getList().get(i+""), RankVedioInfoBean.class  );
@@ -127,11 +126,8 @@ public class MyHttpUtils {
                     }
 
                     @Override
-                    public void onFailure(HttpException error, String msg) {
-
-                    }
+                    public void onFailure(HttpException error, String msg) {}
                 });
-
         return true;
     }
 

@@ -1,7 +1,6 @@
 package yuhao.yiliyili.activity;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -77,10 +76,13 @@ public class VitamioVideoActivity extends AppCompatActivity {
                 myHttpUtils2.getBangumi(cid);
             }
         });
+
+
         myHttpUtils1.getCid(rankVedioInfoBean.getAid());
 
         io.vov.vitamio.widget.MediaController controller = new io.vov.vitamio.widget.MediaController(this);
         videoView.setMediaController(controller);
+
 
         super.onResume();
     }

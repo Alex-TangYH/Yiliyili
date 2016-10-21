@@ -1,5 +1,11 @@
 package yuhao.yiliyili.bean.bangummi;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.Arrays;
 
 /**
@@ -8,42 +14,51 @@ import java.util.Arrays;
  */
 public class BangumiInfoBean {
 
-    public String getBackup() {
-        return backup;
+    public String getAccept_format() {
+        return accept_format;
     }
 
-    public void setBackup(String backup) {
-        this.backup = backup;
+    public void setAccept_format(String accept_format) {
+        this.accept_format = accept_format;
     }
 
-    public String getAccept() {
-        return accept;
+    public JsonArray getAccept_quality() {
+        return accept_quality;
     }
 
-    public void setAccept(String accept) {
-        this.accept = accept;
+    public void setAccept_quality(JsonArray accept_quality) {
+        this.accept_quality = accept_quality;
     }
 
-    public String getUrl() {
-        return url;
+    public JsonArray getDurl() {
+        return durl;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setDurl(JsonArray durl) {
+        this.durl = durl;
     }
 
-    public String getLength() {
-        return length;
+    public String getFormat() {
+        return format;
     }
 
-    public void setLength(String length) {
-        this.length = length;
+    public void setFormat(String format) {
+        this.format = format;
     }
 
-    private String accept;
-    private String backup;
-    private String length;
-    private String url;
+    public String getTimelength() {
+        return timelength;
+    }
+
+    public void setTimelength(String timelength) {
+        this.timelength = timelength;
+    }
+
+    private String format;
+    private String timelength;
+    private String accept_format;
+    private JsonArray accept_quality;
+    private JsonArray durl;
 
     public BangumiInfoBean() {
     }
@@ -51,10 +66,11 @@ public class BangumiInfoBean {
     @Override
     public String toString() {
         return "BangumiInfoBean{" +
-                "accept='" + accept + '\'' +
-                ", backup='" + backup + '\'' +
-                ", length='" + length + '\'' +
-                ", url='" + url + '\'' +
+                "accept_format='" + accept_format + '\'' +
+                ", format='" + format + '\'' +
+                ", timelength='" + timelength + '\'' +
+                ", accept_quality=" + accept_quality +
+                ", durl=" + durl +
                 '}';
     }
 }

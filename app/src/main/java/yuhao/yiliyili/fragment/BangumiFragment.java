@@ -3,6 +3,7 @@ package yuhao.yiliyili.fragment;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -36,7 +37,6 @@ import yuhao.yiliyili.interfaces.SetBanguimiUI;
 import yuhao.yiliyili.bean.banner.NewsBean;
 import yuhao.yiliyili.bean.banner.StoryBean;
 import yuhao.yiliyili.utils.AdBannerUtils;
-import yuhao.yiliyili.utils.FullStaggeredGridLayoutManager;
 import yuhao.yiliyili.utils.MyHttpUtils;
 import yuhao.yiliyili.utils.Utils;
 
@@ -82,7 +82,6 @@ public class BangumiFragment extends BaseFragment {
         //第二个5000表示以后每隔5000毫秒执行一次mTimerTask的run()方法
         adBannerUtils = new AdBannerUtils();
         mTimer.schedule(mTimerTask,5000,5000);
-
         super.onCreate(savedInstanceState);
     }
 
